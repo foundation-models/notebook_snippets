@@ -14,7 +14,7 @@ def load_model_yaml(dir, model_name):
   return load_model(dir, model_name, '.yaml')
 def load_model(dir, model_name, extension):
   # load json and create model
-  file_name = dir + 'model.' + model_name + extension
+  file_name = dir + '/model.' + model_name + extension
   file = open(file_name, 'r')
   loaded_model = file.read()
   file.close()
@@ -31,7 +31,7 @@ def save_model_yaml(dir, model, model_name):
   save_model(dir, model, model_name, '.yaml')
 def save_model(dir, model, model_name, extension):
   # serialize model to JSON
-  file_name = dir + 'model.' + model_name + extension
+  file_name = dir + '/model.' + model_name + extension
   if(extension == '.json'):
     model_loaded = model.to_json()
   if(extension == '.yaml'):
@@ -41,12 +41,12 @@ def save_model(dir, model, model_name, extension):
   save_model_weight(model, model_name)
 def save_model_weights(dir, model, model_name):
   # serialize weights to HDF5
-  file_name = dir + 'model.' + model_name + '.h5'
+  file_name = dir + '/model.' + model_name + '.h5'
   model.save_weights(file_name)
   
 def load_model_weights(dir, model, model_name):
   # load serialize weights from HDF5
-  file_name = dir + 'model.' + model_name + '.h5'
+  file_name = dir + '/model.' + model_name + '.h5'
   model.load_weights(file_name)
   
 print('save and load models from yaml and json files defined.\
