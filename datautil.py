@@ -80,3 +80,8 @@ class data_reader():
     def get_epoch(self):
         # return the current epoch
         return self.epoch
+    
+    def get_shuff_train_label(self):
+        X = np.expand_dims(reader.shuf_data, axis=-1)
+        Y = reader.shuf_label
+        return X, Y
