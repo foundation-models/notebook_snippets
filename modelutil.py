@@ -21,7 +21,7 @@ def load_model(dir, model_name, extension):
 
 def save_model_json(dir, model, model_name):
   save_model(dir, model, model_name, '.json')
-def save_model_yaml(dir model, model_name):
+def save_model_yaml(dir, model, model_name):
   save_model(dir, model, model_name, '.yaml')
 def save_model(dir, model, model_name, extension):
   # serialize model to JSON
