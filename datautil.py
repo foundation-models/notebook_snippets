@@ -82,6 +82,6 @@ class data_reader():
         return self.epoch
     
     def get_shuff_train_label(self):
-        X = np.expand_dims(reader.shuf_data, axis=-1)
+        X = np.expand_dims(self.shuf_data, axis=-1)
         Y = self.shuf_label
         return X, Y
