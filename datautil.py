@@ -22,7 +22,7 @@ class data_reader():
         self.epoch = 0
         
     def normalize(self, data):
-        return (data - data.mean())/(data.max() - data.min()
+        return (data - data.mean())/(data.max() - data.min())
         
     def process(self, window_size):
         # Generate the data matrix
