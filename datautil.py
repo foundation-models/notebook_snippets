@@ -8,7 +8,7 @@ class data_reader():
         self.frac = 0.65
         self.random = random
         print('reading data from file', filename)
-        df = pd.read_csv(filename)
+        df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
         df = df[self.columns].dropna().as_matrix()
         print('Dropna with selected columns', df.shape)
