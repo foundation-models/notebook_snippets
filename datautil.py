@@ -5,7 +5,7 @@ def normalize(data):
     return (data - data.mean())/(data.max() - data.min())
     
 class data_reader():  
-    def __init__(self, filename, columns=None, window_size=10, batchsize=32, random=True):
+    def __init__(self, filename, columns=None, label_index=0, window_size=10, batchsize=32, random=True):
         # process the data into a matrix, and return the lenght
         print("Warning: Data passed should be normalized!")
         self.frac = 0.65
@@ -31,8 +31,8 @@ class data_reader():
         sliding_window_data = np.zeros((length-window_size, window_size))
         sliding_window_data = np.zeros((length-window_size, 1))
         for counter in range(length-window_size):
-            sliding_window_data[counter, :] = self.data[counter: counter+window_size, 1]
-            sliding_window_data[counter, :] = self.data[counter+window_size, 0]
+            sliding_window_data[counter, :] = self.data[counter: counter+window_size, window_size]
+            sliding_window_data[counter, :] = self.data[counter+window_size, self.label_index]
         # Random shuffle
         length = sliding_window_data.shape[0]
         idx = np.random.choice(length, length, replace=False)
