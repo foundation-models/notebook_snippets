@@ -29,7 +29,7 @@ class data_reader():
         normalize(self.data)        
         length = self.data.shape[0]
         sliding_window_data = np.zeros((length-window_size, window_size))
-        sliding_window_data = np.zeros((length-window_size, 1))
+        sliding_window_label = np.zeros((length-window_size, 1))
         for counter in range(length-window_size):
             sliding_window_data[counter, :] = self.data[counter: counter+window_size, 1]
             sliding_window_label[counter, :] = self.data[counter+window_size, self.label_index]
