@@ -24,7 +24,7 @@ class data_reader():
     def normalize(data):
         return (data - data.mean())/(data.max() - data.min()
         
-    def process(self window_size):
+    def process(self, window_size):
         # Generate the data matrix
         normalize(self.df)        
         length = self.df.shape[0]
