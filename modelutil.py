@@ -38,7 +38,7 @@ def save_model(dir, model, model_name, extension):
     model_loaded = model.to_yaml()
   with open(file_name, "w") as file:
       file.write(model_loaded)
-  save_model_weight(model, model_name)
+  save_model_weight(dir, model, model_name)
 def save_model_weights(dir, model, model_name):
   # serialize weights to HDF5
   file_name = dir + '/model.' + model_name + '.h5'
