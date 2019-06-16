@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 
+def normalize(data):
+    return (data - data.mean())/(data.max() - data.min())
+    
 class data_reader():  
     def __init__(self, filename, columns=None, window_size=10, batchsize=32, random=True):
         # process the data into a matrix, and return the lenght
@@ -20,9 +23,6 @@ class data_reader():
 
         self.pointer = 0
         self.epoch = 0
-        
-    def normalize(self, data):
-        return (data - data.mean())/(data.max() - data.min())
         
     def process(self, window_size):
         # Generate the data matrix
