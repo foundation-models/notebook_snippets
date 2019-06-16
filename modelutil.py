@@ -1,12 +1,37 @@
 import keras
 from keras.models import model_from_json
 from keras.models import model_from_yaml
+from sklearn.metrics import roc_auc_score
 
 # Display training progress by printing a single dot for each completed epoch
 class PrintDot(keras.callbacks.Callback):
   def on_epoch_end(self, epoch, logs):
     if epoch % 100 == 0: print('')
     print('.', end='')
+    
+class Histories(keras.callbacks.Callback):
+    def on_train_begin(self, logs={}):
+        self.aucs = []
+        self.losses = []
+
+    def on_train_end(self, logs={}):
+        return
+
+    def on_epoch_begin(self, epoch, logs={}):
+        return
+
+    def on_epoch_end(self, epoch, logs={}):
+        self.losses.append(logs.get('loss'))
+        y_pred = self.model.predict(self.model.validation_data[0])
+        self.aucs.append(roc_auc_score(self.model.validation_data[1], y_pred))
+        return
+
+    def on_batch_begin(self, batch, logs={}):
+        return
+
+    def on_batch_end(self, batch, logs={}):
+        return
+
 
 def load_model_json(dir, model_name):
   return load_model(dir, model_name, '.json')
