@@ -7,6 +7,7 @@ class data_reader():
         print("Warning: Data passed should be normalized!")
         self.frac = 0.65
         self.random = random
+        print('reading data from file', filename)
         df = pd.read_csv(filename)
         print('Raw data', df.shape)
         df = df[self.columns].dropna().as_matrix()
@@ -16,7 +17,7 @@ class data_reader():
         self.process(df, window_size)
         self.columns = columns
         self.batchsize = batchsize
-        self.df = df
+        self.dataframe = df
 
         self.pointer = 0
         self.epoch = 0
