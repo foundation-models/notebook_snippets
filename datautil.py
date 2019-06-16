@@ -20,6 +20,7 @@ class data_reader():
         self.process(window_size)
         self.columns = columns
         self.batchsize = batchsize
+        self.label_index = label_index
 
         self.pointer = 0
         self.epoch = 0
