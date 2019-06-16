@@ -42,11 +42,11 @@ class data_reader():
         self.val_idx = idx[int(self.frac*length):]
 
         shuf_data = sliding_window_data[idx, :]
-        shuf_label = sliding_window_data[idx, :]
+        shuf_label = sliding_window_label[idx, :]
         self.shuf_data = shuf_data
         self.shuf_label = shuf_label
         self.train = sliding_window_data
-        self.label = sliding_window_data
+        self.label = sliding_window_label
 
         self.train_data = shuf_data[:int(self.frac*length), :]
         self.train_label = shuf_label[:int(self.frac*length), :]
