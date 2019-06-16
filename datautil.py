@@ -21,7 +21,7 @@ class data_reader():
         self.pointer = 0
         self.epoch = 0
         
-    def normalize(data):
+    def normalize(self, data):
         return (data - data.mean())/(data.max() - data.min()
         
     def process(self, window_size):
