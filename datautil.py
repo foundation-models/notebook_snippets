@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-class data_reader():
+class data_reader():  
     def __init__(self, filename, columns=None, window_size=10, batchsize=32, random=True):
         # process the data into a matrix, and return the lenght
         print("Warning: Data passed should be normalized!")
@@ -10,14 +10,13 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        df = df[columns].dropna().as_matrix()
+        self.data = df[columns].dropna().as_matrix()
         print('Dropna with selected columns', df.shape)
-        print(df.head(3))
+        print(self.data[0:3,:])
         
-        self.process(df, window_size)
+        self.process(window_size)
         self.columns = columns
         self.batchsize = batchsize
-        self.dataframe = df
 
         self.pointer = 0
         self.epoch = 0
@@ -27,26 +26,26 @@ class data_reader():
         
     def process(self, window_size):
         # Generate the data matrix
-        normalize(self.df)        
-        length = self.df.shape[0]
-        data = np.zeros((length-window_size, window_size))
-        label = np.zeros((length-window_size, 1))
+        normalize(self.data)        
+        length = self.data.shape[0]
+        sliding_window_data = np.zeros((length-window_size, window_size))
+        sliding_window_data = np.zeros((length-window_size, 1))
         for counter in range(length-window_size):
-            data[counter, :] = self.df[counter: counter+window_size, 1]
-            label[counter, :] = self.df[counter+window_size, 0]
+            sliding_window_data[counter, :] = self.data[counter: counter+window_size, 1]
+            sliding_window_data[counter, :] = self.data[counter+window_size, 0]
         # Random shuffle
-        length = data.shape[0]
+        length = sliding_window_data.shape[0]
         idx = np.random.choice(length, length, replace=False)
         if not self.random:
             idx = np.arange(length)
         self.val_idx = idx[int(self.frac*length):]
 
-        shuf_data = data[idx, :]
-        shuf_label = label[idx, :]
+        shuf_data = sliding_window_data[idx, :]
+        shuf_label = sliding_window_data[idx, :]
         self.shuf_data = shuf_data
         self.shuf_label = shuf_label
-        self.data =data
-        self.label = label
+        self.train = sliding_window_dat
+        self.label = sliding_window_data
 
         self.train_data = shuf_data[:int(self.frac*length), :]
         self.train_label = shuf_label[:int(self.frac*length), :]
