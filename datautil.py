@@ -32,7 +32,7 @@ class data_reader():
         sliding_window_data = np.zeros((length-window_size, 1))
         for counter in range(length-window_size):
             sliding_window_data[counter, :] = self.data[counter: counter+window_size, 1]
-            sliding_window_data[counter, :] = self.data[counter+window_size, self.label_index]
+            sliding_window_label[counter, :] = self.data[counter+window_size, self.label_index]
         # Random shuffle
         length = sliding_window_data.shape[0]
         idx = np.random.choice(length, length, replace=False)
