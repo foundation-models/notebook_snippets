@@ -10,7 +10,7 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        df = df[self.columns].dropna().as_matrix()
+        df = df[columns].dropna().as_matrix()
         print('Dropna with selected columns', df.shape)
         print(df.head(3))
         
