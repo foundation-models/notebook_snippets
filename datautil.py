@@ -2,27 +2,37 @@ import numpy as np
 import pandas as pd
 
 class data_reader():
-    def __init__(self, filename, l=10, batchsize=32, random=True):
+    def __init__(self, filename, columns=None, window_size=10, batchsize=32, random=True):
         # process the data into a matrix, and return the lenght
         print("Warning: Data passed should be normalized!")
         self.frac = 0.65
         self.random = random
         df = pd.read_csv(filename)
-        self.process(df, l)
+        print('Raw data', df.shape)
+        df = df[self.columns].dropna().as_matrix()
+        print('Dropna with selected columns', df.shape)
+        print(df.head(3))
+        
+        self.process(df, window_size)
+        self.columns = columns
         self.batchsize = batchsize
+        self.df = df
 
         self.pointer = 0
         self.epoch = 0
-    def process(self, df, l):
+        
+    def normalize(data):
+        return (data - data.mean())/(data.max() - data.min()
+        
+    def process(self window_size):
         # Generate the data matrix
-        print(df.head(3))
-        df = df[["NBP (Mean)", "Minute Volume"]].dropna().as_matrix()
-        length = df.shape[0]
-        data = np.zeros((length-l, l))
-        label = np.zeros((length-l, 1))
-        for counter in range(length-l):
-            data[counter, :] = df[counter: counter+l, 1]
-            label[counter, :] = df[counter+l, 0]
+        normalize(self.df)        
+        length = self.df.shape[0]
+        data = np.zeros((length-window_size, window_size))
+        label = np.zeros((length-window_size, 1))
+        for counter in range(length-window_size):
+            data[counter, :] = self.df[counter: counter+window_size, 1]
+            label[counter, :] = self.df[counter+window_size, 0]
         # Random shuffle
         length = data.shape[0]
         idx = np.random.choice(length, length, replace=False)
