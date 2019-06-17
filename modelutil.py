@@ -27,12 +27,12 @@ class Callbacks():
     self.tensorboard = TensorBoard(log_dir='checkpoints/logs', batch_size=batch_size)
     self.earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0)
 
-  def getDefaultCallBacks(self):
+  def getDefaultCallbacks(self):
     return [
       PrintDot(),
-      csvLogger,
-      modelCheckpoint,
-      tensorboard
+      self.csvLogger,
+      self.modelCheckpoint,
+      self.tensorboard
     ]
     
 class Histories(keras.callbacks.Callback):
