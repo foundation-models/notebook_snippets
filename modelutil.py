@@ -15,7 +15,7 @@ class PrintDot(keras.callbacks.Callback):
     if epoch % 100 == 0: print('')
     print('.', end='')
     
-class CallBacks():
+class Callbacks():
   def __init__(self, model_name, batch_size, epochs):
     prefix = '.epoch-' + str(epochs)
     self.modelCheckpoint = ModelCheckpoint('checkpoints/model.' + model_name + prefix + '.h5', 
