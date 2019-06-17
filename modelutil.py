@@ -2,6 +2,12 @@ import keras
 from keras.models import model_from_json
 from keras.models import model_from_yaml
 from sklearn.metrics import roc_auc_score
+from keras.callbacks import ModelCheckpoint
+from keras.callbacks import CSVLogger
+from keras.callbacks import ReduceLROnPlateau
+from keras.callbacks import TensorBoard
+from keras.callbacks import EarlyStopping
+
 
 # Display training progress by printing a single dot for each completed epoch
 class PrintDot(keras.callbacks.Callback):
