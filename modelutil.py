@@ -45,10 +45,13 @@ def load_model(dir, model_name, extension):
   file.close()
   print('load model from file ' + file_name)
   if(extension == '.json'):
-    return model_from_json(loaded_model)
+    model = model_from_json(loaded_model)
   if(extension == '.yaml'):
-    return model_from_yaml(loaded_model)
-  return 'no valid extension'
+    model = model_from_yaml(loaded_model)
+  else:
+    return 'no valid extension'
+  load_model_weights(dir, model, model_name)
+  return model
 
 def save_model_json(dir, model, model_name):
   save_model(dir, model, model_name, '.json')
