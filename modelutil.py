@@ -75,6 +75,7 @@ def save_model_weights(dir, model, model_name):
 def load_model_weights(dir, model, model_name):
   # load serialize weights from HDF5
   file_name = dir + '/model.' + model_name + '.h5'
+  print('loading weights from ', file_name)
   model.load_weights(file_name)
   
 print('save and load models from yaml and json files defined.\
