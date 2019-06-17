@@ -9,6 +9,25 @@ class PrintDot(keras.callbacks.Callback):
     if epoch % 100 == 0: print('')
     print('.', end='')
     
+class CallBacks():
+  prefix = '.epoch-' + str(epochs)
+  self.modelCheckpoint = ModelCheckpoint('checkpoints/model.' + model_name + prefix + '.h5', 
+                             monitor='val_loss', verbose=0, 
+                             save_best_only=True)
+  self.csvLogger = CSVLogger('checkpoints/log.' + model_name + prefix + '.csv')
+  self.reduceLROnPlateau = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001)
+  self.tensorboard = TensorBoard(log_dir='checkpoints/logs', batch_size=batch_size)
+  self.earlyStopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0)
+
+  def getDefaultCallBacks(self):
+    return [
+      PrintDot(),
+      csvLogger,
+      modelCheckpoint,
+      tensorboard
+    ]
+    
 class Histories(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
         self.aucs = []
