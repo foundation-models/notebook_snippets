@@ -13,13 +13,12 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        print(df.columns)
         print(columns)
         print(["NBP (Mean)", "Minute Volume"])
         data = df[["NBP (Mean)", "Minute Volume"]].dropna().values
         print('Dropna with selected columns', data.shape)
         data = (data - data.mean())/(data.max() - data.min())
-        print(data.head(3))
+        print(data[1:3,:])
         
         self.data = data
         self.process(window_size)
