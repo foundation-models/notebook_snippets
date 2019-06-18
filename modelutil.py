@@ -17,7 +17,7 @@ class PrintDot(keras.callbacks.Callback):
     
 class Callbacks():
   def __init__(self, model_name, batch_size, epochs):
-    prefix = '.epoch-' + str(epochs)
+    prefix = '.epoch' + str(epochs)
     self.modelCheckpoint = ModelCheckpoint('checkpoints/model.' + model_name + prefix + '.h5', 
                              monitor='val_loss', verbose=0, 
                              save_best_only=True)
@@ -59,9 +59,9 @@ class Histories(keras.callbacks.Callback):
         return
 
 
-def load_model_json(dir, model_name, epoch):
+def load_model_json(dir, model_name, epoch=0):
   return load_model(dir, model_name, epoch, '.json')
-def load_model_yaml(dir, model_name, epoch):
+def load_model_yaml(dir, model_name, epoch=0):
   return load_model(dir, model_name, epoch, '.yaml')
 def load_model(dir, model_name, epoch, extension):
   # load json and create model
@@ -79,9 +79,9 @@ def load_model(dir, model_name, epoch, extension):
   load_model_weights(dir, model, model_name, epoch)
   return model
 
-def save_model_json(dir, model, model_name, epoch):
+def save_model_json(dir, model, model_name, epoch=0):
   save_model(dir, model, model_name, epoch, '.json')
-def save_model_yaml(dir, model, model_name, epoch):
+def save_model_yaml(dir, model, model_name, epoch=0):
   save_model(dir, model, model_name, epoch, '.yaml')
 def save_model(dir, model, model_name, epoch, extension):
   # serialize model to JSON
@@ -93,13 +93,13 @@ def save_model(dir, model, model_name, epoch, extension):
   with open(file_name, "w") as file:
       file.write(model_loaded)
   save_model_weights(dir, model, model_name, epoch)
-def save_model_weights(dir, model, model_name, epoch):
+def save_model_weights(dir, model, model_name, epoch=0):
   if(epoch != 0):
     # serialize weights to HDF5
     file_name = dir + '/model.' + model_name + '.h5'
     model.save_weights(file_name)
   
-def load_model_weights(dir, model, model_name, epoch):
+def load_model_weights(dir, model, model_name, epoch=0):
   # load serialize weights from HDF
   if(epoch != 0):
     ext = '.epoch' + str(epoch)
