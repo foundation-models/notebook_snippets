@@ -16,11 +16,12 @@ class data_reader():
         print(df.columns)
         print(columns)
         print(["NBP (Mean)", "Minute Volume"])
-        self.data = df[["NBP (Mean)", "Minute Volume"]].dropna().values
-        print('Dropna with selected columns', self.data.shape)
-        print(self.data[0:3,:])
+        data = df[["NBP (Mean)", "Minute Volume"]].dropna().values
+        print('Dropna with selected columns', data.shape)
+        data = (data - data.mean())/(data.max() - data.min())
         print(data.head(3))
         
+        self.data = data
         self.process(window_size)
         self.columns = columns
         self.batchsize = batchsize
