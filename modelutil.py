@@ -59,11 +59,11 @@ class Histories(keras.callbacks.Callback):
         return
 
 
-def load_model_json(dir, model_name):
-  return load_model(dir, model_name, '.json')
-def load_model_yaml(dir, model_name):
-  return load_model(dir, model_name, '.yaml')
-def load_model(dir, model_name, extension):
+def load_model_json(dir, model_name, epoch):
+  return load_model(dir, model_name, epoch, '.json')
+def load_model_yaml(dir, model_name, epoch):
+  return load_model(dir, model_name, epoch, '.yaml')
+def load_model(dir, model_name, epoch, extension):
   # load json and create model
   file_name = dir + '/model.' + model_name + extension
   file = open(file_name, 'r')
@@ -76,14 +76,14 @@ def load_model(dir, model_name, extension):
     model = model_from_yaml(loaded_model)
   else:
     return 'no valid extension'
-  load_model_weights(dir, model, model_name)
+  load_model_weights(dir, model, model_name, epoch)
   return model
 
-def save_model_json(dir, model, model_name):
-  save_model(dir, model, model_name, '.json')
-def save_model_yaml(dir, model, model_name):
-  save_model(dir, model, model_name, '.yaml')
-def save_model(dir, model, model_name, extension):
+def save_model_json(dir, model, model_name, epoch):
+  save_model(dir, model, model_name, epoch, '.json')
+def save_model_yaml(dir, model, model_name, epoch):
+  save_model(dir, model, model_name, epoch, '.yaml')
+def save_model(dir, model, model_name, epoch, extension):
   # serialize model to JSON
   file_name = dir + '/model.' + model_name + extension
   if(extension == '.json'):
@@ -92,17 +92,20 @@ def save_model(dir, model, model_name, extension):
     model_loaded = model.to_yaml()
   with open(file_name, "w") as file:
       file.write(model_loaded)
-  save_model_weights(dir, model, model_name)
-def save_model_weights(dir, model, model_name):
-  # serialize weights to HDF5
-  file_name = dir + '/model.' + model_name + '.h5'
-  model.save_weights(file_name)
+  save_model_weights(dir, model, model_name, epoch)
+def save_model_weights(dir, model, model_name, epoch):
+  if(epoch != 0):
+    # serialize weights to HDF5
+    file_name = dir + '/model.' + model_name + '.h5'
+    model.save_weights(file_name)
   
-def load_model_weights(dir, model, model_name):
-  # load serialize weights from HDF5
-  file_name = dir + '/model.' + model_name + '.h5'
-  print('loading weights from ', file_name)
-  model.load_weights(file_name)
+def load_model_weights(dir, model, model_name, epoch):
+  # load serialize weights from HDF
+  if(epoch != 0):
+    ext = '.epoch' + str(epoch)
+    file_name = dir + '/model.' + model_name + ext + '.h5'
+    print('loading weights from ', file_name)
+    model.load_weights(file_name)
   
 print('save and load models from yaml and json files defined.\
  Everything stored in folder ', dir)
