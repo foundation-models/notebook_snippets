@@ -14,9 +14,12 @@ class data_reader():
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
         print(df.columns)
+        print(columns)
+        print(["NBP (Mean)", "Minute Volume"])
         self.data = df[["NBP (Mean)", "Minute Volume"]].dropna().values
-        print('Dropna with selected columns', df.shape)
+        print('Dropna with selected columns', self.data.shape)
         print(self.data[0:3,:])
+        print(data.head(3))
         
         self.process(window_size)
         self.columns = columns
