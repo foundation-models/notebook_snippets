@@ -133,9 +133,9 @@ def randomForestRegressorModel(X, y):
     return scores
   
 def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
-  print('Y.shape shouuld be (X,)', Y.shape)
+  print('Y.shape should be (X,): ', Y.shape)
   grf = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
-  grf.fit(X, Y.reshape(-1,1))
+  grf.fit(X, np.array(Y).reshape(-1,1))
 
   predicted = grf.predict(X)
   return np.mean((predicted-Y)**2)
