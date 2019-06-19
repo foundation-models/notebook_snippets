@@ -4,7 +4,7 @@ import pandas as pd
 def normalize(dataframe):
     print('before normalize', dataframe.head(2))
     result = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
-    print('after normalize', dataframe.head(2))
+    print('after normalize', result.head(2))
     return result
     
 class data_reader():  
