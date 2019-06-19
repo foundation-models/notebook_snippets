@@ -1,8 +1,11 @@
 import numpy as np
 import pandas as pd
 
-def normalize(data):
-    return (data - data.mean())/(data.max() - data.min())
+def normalize(dataframe):
+    print('before normalize', dataframe.head(2))
+    result = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
+    print('after normalize', dataframe.head(2))
+    return result
     
 class data_reader():  
     def __init__(self, filename, columns=None, label_index=0, window_size=10, batchsize=32, random=True):
