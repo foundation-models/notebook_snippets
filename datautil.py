@@ -13,12 +13,12 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        data = df[columns].dropna().values
+        data = df[columns].dropna()
         print('Dropna with selected columns', data.shape)
         data = (data - data.mean())/(data.max() - data.min())
-        print(data[1:3,:])
+        print(data.head(3))
         
-        self.data = data
+        self.data = data.values
         self.process(window_size)
         self.columns = columns
         self.batchsize = batchsize
