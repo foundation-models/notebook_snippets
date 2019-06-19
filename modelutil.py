@@ -110,6 +110,7 @@ def load_model_weights(dir, model, model_name, epoch=0):
 from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import MinMaxScaler
+import numpy as np
 
 def randomForestRegressorModel(X, y):
     # Perform Grid-Search
@@ -131,7 +132,7 @@ def randomForestRegressorModel(X, y):
 
     return scores
   
-def randomForestRegressor(X, Y, max_depth=10, n_estimators=100):
+def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
   grf = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
   grf.fit(X, Y)
 
