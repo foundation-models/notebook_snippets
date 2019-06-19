@@ -112,7 +112,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import MinMaxScaler
 
 def randomForestRegressorModel(X, y):
-# Perform Grid-Search
+    # Perform Grid-Search
     gsc = GridSearchCV(
         estimator=RandomForestRegressor(),
         param_grid={
@@ -125,8 +125,8 @@ def randomForestRegressorModel(X, y):
     best_params = grid_result.best_params_
     
     rfr = RandomForestRegressor(max_depth=best_params["max_depth"], n_estimators=best_params["n_estimators"],                               random_state=False, verbose=False)
-# Perform K-Fold CV
-   scores = cross_val_score(rfr, X, y, cv=10, scoring='neg_mean_absolute_error')
+    # Perform K-Fold CV
+    scores = cross_val_score(rfr, X, y, cv=10, scoring='neg_mean_absolute_error')
 
     return scores
 
