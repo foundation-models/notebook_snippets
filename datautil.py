@@ -18,7 +18,7 @@ class data_reader():
         print('Raw data', df.shape)
         dataframe = df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
-        data = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
+        data = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
         
         
         self.dataframe = dataframe # origina
@@ -33,8 +33,7 @@ class data_reader():
         self.epoch = 0
         
     def process(self, window_size):
-        # Generate the data matrix
-        normalize(self.data)        
+        # Generate the data matrix      
         length = self.data.shape[0]
         sliding_window_data = np.zeros((length-window_size, window_size))
         sliding_window_label = np.zeros((length-window_size, 1))
