@@ -94,7 +94,7 @@ class data_reader():
 
     def get_whole(self):
         # get whole, for validation set
-        X = np.expand_dims(self.data[:, :], axis=-1)
+        X = np.expand_dims(self.train[:, :], axis=-1)
         Y = self.label[:, :]
         return X, Y
 
