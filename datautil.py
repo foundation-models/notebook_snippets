@@ -32,6 +32,12 @@ class data_reader():
         self.pointer = 0
         self.epoch = 0
         
+    def scaleBack(df):
+        print('before normalize: ', df.head(2))
+        result = df * (self.dataframe.max() - self.dataframe.min()) + self.dataframe.mean()
+        print('after normalize: ', result.head(2))
+        return result
+        
     def process(self, window_size):
         # Generate the data matrix      
         length = self.data.shape[0]
