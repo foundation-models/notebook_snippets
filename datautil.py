@@ -19,7 +19,7 @@ class data_reader():
         dataframe = df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
         data = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
-        print(data.head(3))
+        
         
         self.dataframe = dataframe # origina
         self.scaledDataframe = data
