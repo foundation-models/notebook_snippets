@@ -32,8 +32,8 @@ class data_reader():
         self.pointer = 0
         self.epoch = 0
         
-    def scaleBack(self, data):
-        df = pd.DataFrame(index=self.dataframe.index)
+    def scaleBack(self, data, size):
+        df = pd.DataFrame(index=self.dataframe.iloc[0:size].index)
         df[self.columns[0]] = data
         print('before normalize: ', df.head(2))
         result = df * (self.dataframe.max() - self.dataframe.min()) + self.dataframe.mean()
