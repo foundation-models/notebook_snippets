@@ -24,9 +24,8 @@ class data_reader():
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
         col2 = [columns[2], columns[1]]
-        df2 = df[col2] 
-        print(df2.shape)
-        self.data = df2.dropna().values # scaled data array
+        df2 = dataframe[col2] 
+        self.data = df2.values # scaled data array
         print(self.data.size)
         self.process(window_size)
         self.columns = columns
