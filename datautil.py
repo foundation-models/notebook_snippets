@@ -16,8 +16,10 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        dataframe = df[columns].dropna(how='all')
+        dataframe = df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
+        dataframe = datafarme.dropna()
+        print(dataframe.shape)
         scaledDataFrame = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
         
         
@@ -25,7 +27,6 @@ class data_reader():
         self.scaledDataFrame = scaledDataFrame
         col2 = [columns[2], columns[1]]
         df2 = df[col2] 
-        print(df2.shape)
         self.data = df2.dropna().values # scaled data array
         print(self.data.size)
         self.process(window_size)
