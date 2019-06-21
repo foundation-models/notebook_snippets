@@ -23,10 +23,9 @@ class data_reader():
         
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
-        data[:,0] = scaledDataFrame.iloc[2]
-        data[:,1] = scaledDataFrame.iloc[1]
-        print(data[:3,0])
-        self.data = data.values # scaled data array
+        col2 = [column[2], columns[1]]
+        df2 = df[col2]        
+        self.data = df2.values # scaled data array
         self.process(window_size)
         self.columns = columns
         self.batchsize = batchsize
