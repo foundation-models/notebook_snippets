@@ -26,7 +26,6 @@ class data_reader():
         col2 = [columns[2], columns[1]]
         df2 = dataframe[col2] 
         self.data = df2.values # scaled data array
-        print(self.data.size)
         self.process(window_size)
         self.columns = columns
         self.batchsize = batchsize
