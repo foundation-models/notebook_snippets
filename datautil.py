@@ -18,11 +18,14 @@ class data_reader():
         print('Raw data', df.shape)
         dataframe = df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
-        data = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
+        scaledDataFrame = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
         
         
         self.dataframe = dataframe # origina
-        self.scaledDataframe = data
+        self.scaledDataFrame = scaledDataFrame
+        data[:,0] = scaledDataFrame.iloc[2]
+        data[:,1] = scaledDataFrame.iloc[1]
+        print(data[:3,0])
         self.data = data.values # scaled data array
         self.process(window_size)
         self.columns = columns
