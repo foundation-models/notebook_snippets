@@ -134,11 +134,11 @@ def randomForestRegressorModel(X, y):
   
 def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
   print('Y.shape should be (X,): ', Y.shape)
-  grf = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
-  grf.fit(X, Y)
+  model = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
+  model.fit(X, Y)
 
-  predicted = grf.predict(X)
-  return np.mean((predicted-Y)**2)
+  predicted = model.predict(X)
+  return np.mean((predicted-Y)**2), predicted, model
   
 print('save and load models from yaml and json files defined.\
  Everything stored in folder ', dir)
