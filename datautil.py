@@ -20,12 +20,8 @@ class data_reader():
         columns = cols[cols != np.array(None)]
         dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
-        scaledDataFrame = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())     
-        
-        col2 = [label_column, feature_column]
-        if(col2.size == 2):
-          tmpData = scaledDataFrame[col2].values 
-          self.process(tmpData, window_size)
+        scaledDataFrame = normalize(dataframe) 
+        self.process(window_size)
             
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
