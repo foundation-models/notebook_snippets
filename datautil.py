@@ -24,6 +24,10 @@ class data_reader():
             
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
+        print(self.scaledDataFrame.head(3))
+        print('xxxxxxx')
+        for counter in range(10):
+          print(counter, self.scaledDataFrame[self.label_column][counter])
         self.time_column = time_column
         self.feature_column = feature_column
         self.label_column = label_column
