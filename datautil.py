@@ -5,7 +5,7 @@ def normalize(dataframe):
     print('before normalize: ', dataframe.head(2))
     result = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
     print('after normalize: ', result.head(2))
-    return result
+    return pd.DataFrame(result)
     
 class data_reader():  
     def __init__(self, filename, time_column=None, feature_column=None, label_column=None, window_size=10, random_shuffle=True):
@@ -19,8 +19,10 @@ class data_reader():
         cols = np.array([time_column, feature_column, label_column])
         columns = cols[cols != np.array(None)]
         dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
+        dataframe = dataframe.reset_index(drop=True)
         print('Dropna with selected columns', dataframe.shape)
         scaledDataFrame = normalize(dataframe) 
+        scaledDataFrame = scaledDataFrame.reset_index(drop=True)
             
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
