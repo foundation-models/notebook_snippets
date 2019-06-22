@@ -21,13 +21,14 @@ class data_reader():
         dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
         scaledDataFrame = normalize(dataframe) 
-        self.process(window_size)
             
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
         self.time_column = time_column
         self.feature_column = feature_column
         self.label_column = label_column
+        self.process(window_size)
+
         
     def scaledBackDataFrame(self, data, size, column_name):
         df = pd.DataFrame(index=self.dataframe.iloc[0:size].index)
