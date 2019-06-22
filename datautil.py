@@ -28,11 +28,7 @@ class data_reader():
         self.time_column = time_column
         self.feature_column = feature_column
         self.label_column = label_column
-        print('xxxxxxx')
-        for counter in range(10):
-          print(counter, self.scaledDataFrame[self.label_column][counter])
-
-        self.process(window_size)
+        
 
         
     def scaledBackDataFrame(self, data, size, column_name):
