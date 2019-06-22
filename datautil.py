@@ -8,7 +8,7 @@ def normalize(dataframe):
     return result
     
 class data_reader():  
-    def __init__(self, filename, columns=None, label_index=0, window_size=10, batchsize=32, random=True):
+    def __init__(self, filename, time_column, feature_column, label_column, label_index=0, window_size=10, batchsize=32, random=True):
         # process the data into a matrix, and return the lenght
         print("Warning: Data passed should be normalized!")
         self.frac = 0.65
@@ -16,27 +16,29 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        dataframe = df[columns].dropna()
+        dataframe = df[time_column, feature_column, label_column].dropna()
         print('Dropna with selected columns', dataframe.shape)
         scaledDataFrame = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
         
         
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
-        col2 = [columns[2], columns[1]]
+        col2 = [label_column, feature_column]
         df2 = scaledDataFrame[col2] 
         self.data = df2.values # scaled data array
         self.process(window_size)
-        self.columns = columns
+        self.time_column = time_column
+        self.feature_column = feature_column
+        self.label_column = label_column
         self.batchsize = batchsize
         self.label_index = label_index
 
         self.pointer = 0
         self.epoch = 0
         
-    def scaleBack(self, data, size):
+    def scaleBack(self, data, size, column_name):
         df = pd.DataFrame(index=self.dataframe.iloc[0:size].index)
-        df[self.columns[0]] = data
+        df[column_name] = data
         print('before normalize: ', df.head(2))
         result = df * (self.dataframe.max() - self.dataframe.min()) + self.dataframe.mean()
         print('after normalize: ', result.head(2))
