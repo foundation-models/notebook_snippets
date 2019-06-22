@@ -18,7 +18,7 @@ class data_reader():
         print('Raw data', df.shape)
         cols = np.array([time_column, feature_column, label_column])
         columns = cols[cols != np.array(None)]
-        dataframe = df.dropna() if columns.size == 0 else [columns].dropna()
+        dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
         scaledDataFrame = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())     
         
