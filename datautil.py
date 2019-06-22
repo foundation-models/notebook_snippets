@@ -44,11 +44,10 @@ class data_reader():
         length0 = self.scaledDataFrame.shape[0]
         sliding_window_data = np.zeros((length0-window_size, window_size))
         sliding_window_label = np.zeros((length0-window_size, 1))
-        print(self.scaledDataFrame[self.feature_column].size)
+        print(self.scaledDataFrame[self.label_column].size)
         if(self.feature_column is not None):
             for counter in range(length0-window_size):
                 sliding_window_data[counter, :] = self.scaledDataFrame[self.feature_column][counter: counter+window_size]
-        print('XXXXXXX')
         for counter in range(length0-window_size):
             sliding_window_label[counter, :] = self.scaledDataFrame[self.label_column][counter+window_size]
             
