@@ -26,10 +26,11 @@ class data_reader():
             
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
-        print(self.scaledDataFrame.head(3))
         self.time_column = time_column
         self.feature_column = feature_column
         self.label_column = label_column
+        
+        self.process(window_size)
         
 
         
@@ -64,6 +65,7 @@ class data_reader():
 
         shuf_data = sliding_window_data[idx, :]
         shuf_label = sliding_window_label[idx, :]
+        
         self.shuf_data = shuf_data
         self.shuf_label = shuf_label
         self.train = sliding_window_data
