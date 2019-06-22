@@ -45,8 +45,11 @@ class data_reader():
         sliding_window_data = np.zeros((length0-window_size, window_size))
         sliding_window_label = np.zeros((length0-window_size, 1))
         for counter in range(length0-window_size):
+            print('11', self.feature_column)
             if(self.feature_column is not None):
+                print('12')
                 sliding_window_data[counter, :] = self.scaledDataFrame[self.feature_column][counter: counter+window_size]
+            print('13')
             sliding_window_label[counter, :] = self.scaledDataFrame[self.label_column][counter+window_size]
         # Random shuffle
         print('xx')
