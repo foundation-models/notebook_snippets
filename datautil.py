@@ -8,7 +8,7 @@ def normalize(dataframe):
     return result
     
 class data_reader():  
-    def __init__(self, filename, time_column=None, feature_column, label_column=None, window_size=10, random_shuffle=True):
+    def __init__(self, filename, time_column=None, feature_column=None, label_column=None, window_size=10, random_shuffle=True):
         # process the data into a matrix, and return the lenght
         print("Warning: Data passed should be normalized!")
         self.frac = 0.65
@@ -16,16 +16,19 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        dataframe = df[[time_column, feature_column, label_column]].dropna()
+        cols = [time_column, feature_column, label_column]
+        columns = cols[cols != np.array(None)]
+        dataframe = df.dropna() if columns.size == 0 else [columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
         scaledDataFrame = normalize(dataframe) #(dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())     
         
+        col2 = [label_column, feature_column]
+        if(col2.size == 2):
+          tmpData = scaledDataFrame[col2].values 
+          self.process(tmpData, window_size)
+            
         self.dataframe = dataframe # origina
         self.scaledDataFrame = scaledDataFrame
-        col2 = [label_column, feature_column]
-        df2 = scaledDataFrame[col2] 
-        self.data = df2.values # scaled data array
-        self.process(window_size)
         self.time_column = time_column
         self.feature_column = feature_column
         self.label_column = label_column
@@ -41,12 +44,13 @@ class data_reader():
         
     def process(self, window_size):
         # Generate the data matrix      
-        length = self.data.shape[0]
-        sliding_window_data = np.zeros((length-window_size, window_size))
-        sliding_window_label = np.zeros((length-window_size, 1))
-        for counter in range(length-window_size):
-            sliding_window_data[counter, :] = self.data[counter: counter+window_size, 1]
-            sliding_window_label[counter, :] = self.data[counter+window_size, 0]
+        length0 = self.scaledDataFrame.shape[0]
+        sliding_window_data = np.zeros((length0-window_size, window_size))
+        sliding_window_label = np.zeros((length0-window_size, 1))
+        for counter in range(length0-window_size):
+            if(self.feature_column != Null):
+                sliding_window_data[counter, :] = self.scaledDataFrame[self.feature_column][counter: counter+window_size]
+            sliding_window_label[counter, :] = self.scaledDataFrame[self.label_column][counter+window_size]
         # Random shuffle
         length = sliding_window_data.shape[0]
         idx = np.random.choice(length, length, replace=False)
