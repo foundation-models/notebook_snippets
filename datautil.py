@@ -48,6 +48,7 @@ class data_reader():
             if(self.feature_column is not None):
                 sliding_window_data[counter, :] = self.scaledDataFrame[self.feature_column][counter: counter+window_size]
             sliding_window_label[counter, :] = self.scaledDataFrame[self.label_column][counter+window_size]
+            print(length0, ': ', counter)
         # Random shuffle
         print('xx')
         length = sliding_window_data.shape[0]
