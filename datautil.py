@@ -16,7 +16,7 @@ class data_reader():
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
         print('Raw data', df.shape)
-        cols = [time_column, feature_column, label_column]
+        cols = np.array([time_column, feature_column, label_column])
         columns = cols[cols != np.array(None)]
         dataframe = df.dropna() if columns.size == 0 else [columns].dropna()
         print('Dropna with selected columns', dataframe.shape)
