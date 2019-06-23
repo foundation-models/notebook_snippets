@@ -5,8 +5,8 @@ def normalize(dataframe, label_column=None):
     print('before normalize: ', dataframe.head(2))
     result = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
     print('after normalize: ', result.head(2))
-    ratio = dataframe[label_column].max() - dataframe[label_column].min()
-    bias = dataframe[label_column].mean()
+    ratio = float(dataframe[label_column].max() - dataframe[label_column].min())
+    bias = float(dataframe[label_column].mean())
     return pd.DataFrame(result), ratio, bias
     
 class data_reader():  
