@@ -2,11 +2,14 @@ import numpy as np
 import pandas as pd
 
 def normalize(dataframe, label_column=None):
+    ratio = None
+    bias = None
     print('before normalize: ', dataframe.head(2))
     result = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
     print('after normalize: ', result.head(2))
-    ratio = float(dataframe[label_column].max() - dataframe[label_column].min())
-    bias = float(dataframe[label_column].mean())
+    if(label_column is not None):
+        ratio = float(dataframe[label_column].max() - dataframe[label_column].min())
+        bias = float(dataframe[label_column].mean())
     return pd.DataFrame(result), ratio, bias
     
 class data_reader():  
