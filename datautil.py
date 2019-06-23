@@ -1,11 +1,13 @@
 import numpy as np
 import pandas as pd
 
-def normalize(dataframe):
+def normalize(dataframe, label_column=None):
     print('before normalize: ', dataframe.head(2))
     result = (dataframe - dataframe.mean())/(dataframe.max() - dataframe.min())
     print('after normalize: ', result.head(2))
-    return pd.DataFrame(result)
+    ratio = dataframe[label_column].max() - dataframe[label_column].min()
+    bias = dataframe[label_column].mean()
+    return pd.DataFrame(result), ratio, bias
     
 class data_reader():  
     def __init__(self, filename, time_column=None, feature_column=None, label_column=None, window_size=10, random_shuffle=True):
@@ -21,7 +23,7 @@ class data_reader():
         dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
         dataframe = dataframe.reset_index(drop=True)
         print('Dropna with selected columns', dataframe.shape)
-        scaledDataFrame = normalize(dataframe) 
+        scaledDataFrame, ratio, bias = normalize(dataframe, label_column=label_column)
         scaledDataFrame = scaledDataFrame.reset_index(drop=True)
             
         self.dataframe = dataframe # origina
@@ -29,6 +31,8 @@ class data_reader():
         self.time_column = time_column
         self.feature_column = feature_column
         self.label_column = label_column
+        self.scale_ratio_label = ratio
+        self.scale_bias_label = bias
         
         self.process(window_size)
         
