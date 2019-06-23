@@ -33,7 +33,7 @@ class data_reader():
         self.label_column = label_column
         self.scale_ratio_label = ratio
         self.scale_bias_label = bias
-        
+        print('processing sliding window')
         self.process(window_size)
         
 
@@ -53,14 +53,15 @@ class data_reader():
         length0 = self.scaledDataFrame.shape[0]
         sliding_window_data = np.zeros((length0-window_size, window_size))
         sliding_window_label = np.zeros((length0-window_size, 1))
-        
+        print('label_column:', self.label_column)
         if(self.label_column is not None):
             for counter in range(length0-window_size):
                 sliding_window_label[counter, :] = self.scaledDataFrame[self.label_column][counter+window_size]          
+        print('feature_column:', self.feature_column)
         if(self.feature_column is not None):
             for counter in range(length0-window_size):
                 sliding_window_data[counter, :] = self.scaledDataFrame[self.feature_column][counter: counter+window_size]
-        # Random shuffle
+        print('Random shuffeling')
         length = sliding_window_data.shape[0]
         idx = np.random.choice(length, length, replace=False)
         if not self.random:
