@@ -110,6 +110,7 @@ def load_model_weights(dir, model, model_name, epoch=0):
 from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
 import numpy as np
 
 def randomForestRegressorModel(X, y):
@@ -132,13 +133,20 @@ def randomForestRegressorModel(X, y):
 
     return scores
   
-def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
+def runRegressor(X, Y, max_depth=10, n_estimators=100):
   print('Y.shape should be (X,): ', Y.shape)
-  model = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
+  #model = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
+  model = RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=max_depth,
+           max_features='auto', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=n_estimators, n_jobs=None,
+           oob_score=False, random_state=0, verbose=0, warm_start=False)
   model.fit(X, Y)
 
   predicted = model.predict(X)
-  return np.mean((predicted-Y)**2), predicted, model
+  mse = mean_squared_error(y_true, y_pred, multioutput='raw_values')
+  return mse, predicted, model
   
 print('save and load models from yaml and json files defined.\
  Everything stored in folder ', dir)
