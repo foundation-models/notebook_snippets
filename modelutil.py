@@ -145,7 +145,7 @@ def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
   model.fit(X, Y)
 
   predicted = model.predict(X)
-  mse = mean_squared_error(y_true, y_pred, multioutput='raw_values')
+  mse = mean_squared_error(Y, predicted, multioutput='raw_values')
   feature_importances = pd.Series(model.feature_importances_, index=feature_train.columns)
   return mse, predicted, model, feature_importances
   
