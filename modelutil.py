@@ -143,19 +143,16 @@ def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
            min_samples_leaf=1, min_samples_split=2,
            min_weight_fraction_leaf=0.0, n_estimators=n_estimators, n_jobs=None,
            oob_score=False, random_state=0, verbose=0, warm_start=False)
-  runRegressor(model, X, Y, max_depth, n_estimators)
+  return runRegressor(model, X, Y, max_depth, n_estimators)
 def runExtraTreesRegressor(X, Y):
-  runRegressor(ExtraTreesRegressor(), X, Y)
+  return runRegressor(ExtraTreesRegressor(), X, Y)
 def runRegressor(model, X, Y, max_depth=10, n_estimators=100):
   print('Y.shape should be (#,): ', Y.shape)
   model.fit(X, Y)
 
   predicted = model.predict(X)
-  print(predicted.shape)
   mse = mean_squared_error(Y, predicted, multioutput='raw_values')
-  print(mse)
   feature_importances = pd.Series(model.feature_importances_, index=X.columns)
-  print(feature_importances.size)
   return mse, predicted, model, feature_importances
   
 print('save and load models from yaml and json files defined.\
