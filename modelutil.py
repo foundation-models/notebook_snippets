@@ -133,8 +133,8 @@ def randomForestRegressorModel(X, y):
 
     return scores
   
-def runRegressor(X, Y, max_depth=10, n_estimators=100):
-  print('Y.shape should be (X,): ', Y.shape)
+def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
+  print('Y.shape should be (#,): ', Y.shape)
   #model = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
   model = RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=max_depth,
            max_features='auto', max_leaf_nodes=None,
@@ -146,7 +146,8 @@ def runRegressor(X, Y, max_depth=10, n_estimators=100):
 
   predicted = model.predict(X)
   mse = mean_squared_error(y_true, y_pred, multioutput='raw_values')
-  return mse, predicted, model
+  feature_importances = pd.Series(model.feature_importances_, index=feature_train.columns)
+  return mse, predicted, model, feature_importances
   
 print('save and load models from yaml and json files defined.\
  Everything stored in folder ', dir)
