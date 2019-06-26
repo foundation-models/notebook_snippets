@@ -152,7 +152,9 @@ def runRegressor(model, X, Y, max_depth=10, n_estimators=100):
 
   predicted = model.predict(X)
   mse = mean_squared_error(Y, predicted, multioutput='raw_values')
+  print('Model accuracy, MSE: ', mse)
   feature_importances = pd.Series(model.feature_importances_, index=X.columns)
+  print(feature_importances.size, ' number of important features calculated')
   return mse, predicted, model, feature_importances
   
 print('save and load models from yaml and json files defined.\
