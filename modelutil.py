@@ -151,7 +151,9 @@ def runRegressor(model, X, Y, max_depth=10, n_estimators=100):
   model.fit(X, Y)
 
   predicted = model.predict(X)
+  print(predicted.shape)
   mse = mean_squared_error(Y, predicted, multioutput='raw_values')
+  print(mse)
   feature_importances = pd.Series(model.feature_importances_, index=X.columns)
   return mse, predicted, model, feature_importances
   
