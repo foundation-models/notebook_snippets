@@ -147,7 +147,7 @@ def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
 
   predicted = model.predict(X)
   mse = mean_squared_error(Y, predicted, multioutput='raw_values')
-  feature_importances = pd.Series(model.feature_importances_, index=feature_train.columns)
+  feature_importances = pd.Series(model.feature_importances_, index=X.columns)
   return mse, predicted, model, feature_importances
   
 print('save and load models from yaml and json files defined.\
