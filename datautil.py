@@ -1,6 +1,11 @@
 import numpy as np
 import pandas as pd
 
+def getGoogleCloudBucket():
+  from google.colab import auth
+  auth.authenticate_user()
+  return 'gs://medicalblockchain_dev'
+
 def normalize(dataframe, label_column=None):
     ratio = None
     bias = None
