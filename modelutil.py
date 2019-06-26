@@ -1,4 +1,5 @@
 import keras
+import pandas as pd
 from keras.models import model_from_json
 from keras.models import model_from_yaml
 from sklearn.metrics import roc_auc_score
