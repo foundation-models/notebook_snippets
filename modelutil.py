@@ -110,6 +110,7 @@ def load_model_weights(dir, model, model_name, epoch=0):
     
 from sklearn.model_selection import cross_val_score, GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 import numpy as np
@@ -135,7 +136,6 @@ def randomForestRegressorModel(X, y):
     return scores
   
 def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
-  print('Y.shape should be (#,): ', Y.shape)
   #model = RandomForestRegressor(max_depth=max_depth, random_state=0, n_estimators=n_estimators)
   model = RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=max_depth,
            max_features='auto', max_leaf_nodes=None,
@@ -143,6 +143,11 @@ def runRandomForestRegressor(X, Y, max_depth=10, n_estimators=100):
            min_samples_leaf=1, min_samples_split=2,
            min_weight_fraction_leaf=0.0, n_estimators=n_estimators, n_jobs=None,
            oob_score=False, random_state=0, verbose=0, warm_start=False)
+  runRegressor(model, X, Y, max_depth, n_estimators)
+def runExtraTreesRegressor(X, Y):
+  runRegressor(ExtraTreesRegressor(), X, Y)
+def runRegressor(model, X, Y, max_depth=10, n_estimators=100):
+  print('Y.shape should be (#,): ', Y.shape)
   model.fit(X, Y)
 
   predicted = model.predict(X)
