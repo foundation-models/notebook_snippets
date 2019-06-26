@@ -14,5 +14,7 @@ def facets_display(data):
   jsonstr = data.to_json(orient='records')
   html = HTML_TEMPLATE.format(jsonstr=jsonstr)
   print('Displaying factes plots inside Notebook. You may need different browser to view it corectly')
-  display(HTML(html))
+  src = HTML(html)
+  display(src)
+  return src
   
