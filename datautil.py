@@ -25,9 +25,10 @@ class data_reader():
         self.random = random_shuffle
         print('reading data from file', filename)
         df = pd.read_csv(filename, error_bad_lines=False, warn_bad_lines=False, index_col=False)
-        print('Raw data', df.shape)
+        print('Raw data', df.shape, df.columns)
         cols = np.array([time_column, feature_column, label_column])
         columns = cols[cols != np.array(None)]
+        print('Reading the following columns ' + columns)
         dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
         dataframe = dataframe.reset_index(drop=True)
         print('Dropna with selected columns', dataframe.shape)
