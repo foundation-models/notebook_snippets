@@ -30,6 +30,7 @@ class data_reader():
         columns = cols[cols != np.array(None)]
         print('Reading the following columns ' + columns)
         dataframe = df.dropna() if columns.size == 0 else df[columns].dropna()
+        print(dadaframe.shape)
         dataframe = dataframe.reset_index(drop=True)
         print('Dropna with selected columns', dataframe.shape)
         scaledDataFrame, ratio, bias = normalize(dataframe, label_column=label_column)
